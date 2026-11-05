@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCore | Academic Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#">
+            <span class="brand-mark">E</span>
+            <span>EduCore<small>ACADEMIC SYSTEM</small></span>
+        </a>
+
+        <div class="menu-label">WORKSPACE</div>
+
+        <a href="#overview" class="nav-link active">▦ <span>Overview</span></a>
+        <a href="#students" class="nav-link">♙ <span>Students</span></a>
+        <a href="#analytics" class="nav-link">▥ <span>Analytics</span></a>
+        <a href="#mercy" class="nav-link">✦ <span>Mercy Committee</span></a>
+
+        <div class="sidebar-bottom">
+            <div class="system-status"><i></i> System Operational</div>
+            <div class="profile">
+                <div class="profile-avatar">N</div>
+                <div>
+                    <strong>Admin Nada</strong>
+                    <small>Administrator</small>
+                </div>
+                <span class="profile-more">•••</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <div class="breadcrumb">
+                <span>Workspace</span> / <strong>Overview</strong>
+            </div>
+
+            <div class="top-actions">
+                <span class="today" id="today"></span>
+                <button class="icon-btn" id="themeToggle" title="Toggle dark mode">◐</button>
+                <button class="admin-btn">N</button>
+            </div>
+        </header>
+
+        <section class="page-heading" id="overview">
+            <div>
+                <div class="eyebrow">ACADEMIC MANAGEMENT</div>
+                <h1>Overview</h1>
+                <p>Monitor student performance and academic progress.</p>
+            </div>
+
+            <button class="primary-btn" id="exportBtn">
+                ↓ &nbsp; Export Report
+            </button>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <div class="stat-head">
+                    <span>Total Students</span>
+                    <span class="stat-symbol">♙</span>
+                </div>
+                <h2 class="counter" id="totalStudents">0</h2>
+                <p>Registered students</p>
+                <div class="stat-line"><span style="width:100%"></span></div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-head">
+                    <span>Successful</span>
+                    <span class="stat-symbol green-icon">✓</span>
+                </div>
+                <h2 class="counter" id="passedStudents">0</h2>
+                <p>Passed academic requirements</p>
+                <div class="stat-line green-line"><span id="passedLine"></span></div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-head">
+                    <span>Need Review</span>
+                    <span class="stat-symbol orange-icon">!</span>
+                </div>
+                <h2 class="counter" id="failedStudents">0</h2>
+                <p>Require academic support</p>
+                <div class="stat-line orange-line"><span id="failedLine"></span></div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-head">
+                    <span>Class Average</span>
+                    <span class="stat-symbol gold-icon">↗</span>
+                </div>
+                <h2 class="counter" id="classAverage">0</h2>
+                <p>Average across all students</p>
+                <div class="stat-line gold-line"><span id="averageLine"></span></div>
+            </article>
+
+        </section>
+
+        <!-- ANALYTICS -->
+        <section class="analytics-grid" id="analytics">
+
+            <article class="panel chart-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Academic Performance</h3>
+                        <p>Students' average grades by subject</p>
+                    </div>
+                    <span class="live-tag">LIVE DATA</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </article>
+
+            <article class="panel distribution-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Grade Distribution</h3>
+                        <p>Academic grade breakdown</p>
+                    </div>
+                </div>
+                <div class="donut-container">
+                    <canvas id="gradeChart"></canvas>
+                </div>
+                <div class="legend" id="gradeLegend"></div>
+            </article>
+
+        </section>
+
+        <!-- STUDENTS -->
+        <section class="panel students-panel" id="students">
+
+            <div class="panel-heading students-heading">
+                <div>
+                    <h3>Students Directory</h3>
+                    <p>Manage and review student academic records.</p>
+                </div>
+                <button class="primary-btn" id="addStudentBtn">+ Add Student</button>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="text" id="searchInput" placeholder="Search by name or student ID...">
+                </div>
+
+                <select id="statusFilter">
+                    <option value="all">All Students</option>
+                    <option value="passed">Successful</option>
+                    <option value="review">Need Review</option>
+                    <option value="struggling">Struggling (40–49)</option>
+                </select>
+
+                <button class="secondary-btn" id="sortBtn">↕ Sort by Average</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STUDENT</th>
+                            <th>ID</th>
+                            <th>AVERAGE</th>
+                            <th>GRADE</th>
+                            <th>ATTENDANCE</th>
+                            <th>RESULT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable"></tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <span id="showingCount">Showing 0 students</span>
+                <button class="text-btn" id="resetBtn">Reset filters ↺</button>
+            </div>
+
+        </section>
+
+        <!-- MERCY -->
+        <section class="panel mercy-panel" id="mercy">
+
+            <div class="panel-heading">
+                <div>
+                    <div class="eyebrow">ACADEMIC SUPPORT PROGRAM</div>
+                    <h3>Mercy Committee</h3>
+                    <p>Students with averages between 40 and 49 receive 5 mercy marks.</p>
+                </div>
+                <span class="mercy-label">+5 MARKS</span>
+            </div>
+
+            <div class="mercy-content">
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>ORIGINAL AVERAGE</th>
+                                <th>NEW AVERAGE</th>
+                                <th>SUPPORT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mercyTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="mercy-result">
+                    <span class="result-icon">✦</span>
+                    <p>AVERAGE AFTER MERCY</p>
+                    <h2 id="mercyAverage">0.00</h2>
+                    <span id="mercyCount">0 students supported</span>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <span>EduCore</span> Academic Management System
+            <span class="footer-right">Built with JavaScript</span>
+        </footer>
+
+    </main>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal-overlay" id="studentModal">
+    <div class="modal">
+        <div class="modal-heading">
+            <div>
+                <h2>Add New Student</h2>
+                <p>Enter the student's academic information.</p>
+            </div>
+            <button id="closeModal" class="close-btn">×</button>
+        </div>
+
+        <form id="studentForm">
+            <label>Student ID</label>
+            <input type="number" id="newId" required min="1">
+
+            <label>Full Name</label>
+            <input type="text" id="newName" required>
+
+            <div class="form-row">
+                <div>
+                    <label>Subject 1</label>
+                    <input type="number" id="grade1" min="0" max="100" required>
+                </div>
+                <div>
+                    <label>Subject 2</label>
+                    <input type="number" id="grade2" min="0" max="100" required>
+                </div>
+                <div>
+                    <label>Subject 3</label>
+                    <input type="number" id="grade3" min="0" max="100" required>
+                </div>
+            </div>
+
+            <label>Attendance (%)</label>
+            <input type="number" id="newAttendance" min="0" max="100" required>
+
+            <button class="primary-btn submit-btn" type="submit">Save Student</button>
+        </form>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
